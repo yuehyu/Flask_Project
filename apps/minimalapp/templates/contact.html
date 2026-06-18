@@ -8,6 +8,16 @@
 </head>
 <body>
   <h2>諮詢表單</h2>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <ul>
+    {% for message in messages  %}
+    <li class="flash">{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% endwith %}
+
   <form action="{{ url_for('contact_complete') }}" method="post" novalidate="novalidate">
     <table>
       <tr>

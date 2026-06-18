@@ -1,17 +1,10 @@
-from flask import Flask, render_template, url_for, redirect, request
+from flask import Flask, render_template, url_for, redirect, request, flash
+from email_validator import validate_email, EmailNotValidError
 
 
 app = Flask(__name__)
 
-# @app.route("/")
-# def index():
-# 	return "Hi"
-# @app.route("/world", methods=["GET"], endpoint='hi-world')
-# def world():
-# 	return "hi world!"
-# @app.route("/hi/<name>")
-# def hi_name(name):
-# 	return render_template("index.html", name=name)
+app.config["SECRET_KEY"] = "8Y3U1E0H28"
 
 # with app.test_request_context():
 #   print(url_for("index"))
@@ -27,5 +20,26 @@ def contact():
 # @app.post("/contact/complete")
 def contact_complete():
   if request.method == "POST":
+    username = request.form["username"]
+    email = request.form["email"]
+    description = request.form["description"]
+    is_valid = True
+    if not username:
+      flash("必須填寫使用者名稱")
+      is_valid = False
+    if not email:
+      flash("必須輸入郵件位址")
+      is_valid = False
+    try:
+      validate_email(email)
+    except EmailNotValidError:
+      flash("請輸入正確的郵件格式")
+      is_valid = False
+    if not description:
+      flash("必須填寫諮詢內容")
+      is_valid = False
+    if not is_valid:
+      return redirect(url_for("contact"))
+    flash("諮詢內容已傳送，感謝您的來信諮詢。")
     return redirect(url_for("contact_complete"))
   return render_template("contact_complete.html")
