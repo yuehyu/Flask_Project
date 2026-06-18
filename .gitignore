@@ -260,8 +260,11 @@ poetry.toml
 pyrightconfig.json
 
 #  Txt
+Note/
 *.txt
 
+# vscode config
+.vscode
 
 #!! ERROR: vscode is undefined. Use list command to see defined gitignore types !!#
 
