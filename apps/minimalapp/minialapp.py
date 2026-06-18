@@ -8,7 +8,7 @@ from flask_mail import Mail, Message
 
 app = Flask(__name__)
 
-app.config["SECRET_KEY"] = "8Y3U1E0H28"
+app.config["SECRET_KEY"] = "自行建立"
 app.logger.setLevel(logging.DEBUG)
 app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
 toolbar = DebugToolbarExtension(app)
